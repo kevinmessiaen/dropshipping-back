@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductTransformer extends Transformer<Product, ProductDto, Integer> {
 
-    private CategoryTransformer categoryTransformer;
+    private final CategoryTransformer categoryTransformer;
 
     @Autowired
     public ProductTransformer(CategoryTransformer categoryTransformer) {
