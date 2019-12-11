@@ -12,6 +12,9 @@ public abstract class MapTransformer<E, K, V>  {
 
     @Nullable
     public Map<K, V> transformToMap(@Nullable Collection<E> entities) {
+        if (entities == null)
+            return null;
+        
         final Map<K, V> map = new HashMap<>();
         entities.forEach((e -> map.put(extractKey(e), extractValue(e))));
         return map;

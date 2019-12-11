@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class BasketController {
@@ -20,5 +22,15 @@ public class BasketController {
     @GetMapping("/basket/{uuid}")
     private ResponseEntity<BasketDto> findById(@PathVariable String uuid) {
         return ResponseEntity.of(basketService.findById(uuid));
+    }
+
+    @PostMapping("/basket")
+    private ResponseEntity<BasketDto> createBasket(@RequestBody @Valid BasketDto basket) {
+        return ResponseEntity.of(basketService.createBasket(basket));
+    }
+
+    @PutMapping("/basket/{uuid}")
+    private ResponseEntity<BasketDto> findById(@PathVariable String uuid, @RequestBody @Valid BasketDto basket) {
+        return ResponseEntity.of(basketService.updateBasket(uuid, basket));
     }
 }
