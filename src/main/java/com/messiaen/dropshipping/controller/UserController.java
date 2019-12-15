@@ -10,12 +10,12 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
-public class UserControler {
+public class UserController {
 
     IUserService userService;
 
     @Autowired
-    public UserControler(IUserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 

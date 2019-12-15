@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 public class UserTransformer extends Transformer<User, UserDto, Long> {
 
     private final PasswordEncoder encoder;
+    private final BasketTransformer basketTransformer;
 
     @Autowired
-    public UserTransformer(PasswordEncoder encoder) {
+    public UserTransformer(PasswordEncoder encoder, BasketTransformer basketTransformer) {
         this.encoder = encoder;
+        this.basketTransformer = basketTransformer;
     }
 
     @Override
@@ -22,6 +24,7 @@ public class UserTransformer extends Transformer<User, UserDto, Long> {
                 UserDto.builder()
                         .id(entity.getId())
                         .username(entity.getUsername())
+                        .basketId(basketTransformer.extractKeyToString(entity.getBasket()))
                         .build();
     }
 
@@ -37,6 +40,7 @@ public class UserTransformer extends Transformer<User, UserDto, Long> {
                         .id(dto.getId())
                         .username(dto.getUsername())
                         .password(encoder.encode(dto.getPassword()))
+                        .basket(basketTransformer.holdKey(basketTransformer.parseKey(dto.getBasketId())))
                         .build();
     }
 

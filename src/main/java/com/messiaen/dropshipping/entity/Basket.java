@@ -24,4 +24,8 @@ public class Basket {
     @OneToMany(mappedBy = "id.basket", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<BasketContent> content;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

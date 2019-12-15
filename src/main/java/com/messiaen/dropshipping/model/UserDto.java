@@ -22,4 +22,6 @@ public class UserDto {
     @Size(min = 4, message = "Le mot de passe doit contenir au moins 4 charactères")
     private String password;
 
+    private String basketId;
+
 }
