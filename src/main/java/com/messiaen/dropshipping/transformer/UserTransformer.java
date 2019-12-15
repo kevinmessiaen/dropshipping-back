@@ -2,10 +2,19 @@ package com.messiaen.dropshipping.transformer;
 
 import com.messiaen.dropshipping.entity.User;
 import com.messiaen.dropshipping.model.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserTransformer extends Transformer<User, UserDto, Long> {
+
+    private final PasswordEncoder encoder;
+
+    @Autowired
+    public UserTransformer(PasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
 
     @Override
     public UserDto transformToDto(User entity) {
@@ -27,7 +36,7 @@ public class UserTransformer extends Transformer<User, UserDto, Long> {
                 User.builder()
                         .id(dto.getId())
                         .username(dto.getUsername())
-                        .password(dto.getPassword())
+                        .password(encoder.encode(dto.getPassword()))
                         .build();
     }
 
