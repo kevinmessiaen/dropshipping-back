@@ -4,11 +4,10 @@ import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 public class UserControler {
@@ -18,6 +17,12 @@ public class UserControler {
     @Autowired
     public UserControler(IUserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping(value = "/restricted/user")
+    @ResponseBody
+    private ResponseEntity<UserDto> current(Principal principal) {
+        return ResponseEntity.of(userService.findByUsername(principal.getName()));
     }
 
     @PostMapping("/user")

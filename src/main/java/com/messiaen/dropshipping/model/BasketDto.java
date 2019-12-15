@@ -16,6 +16,6 @@ public class BasketDto {
 
     private String id;
 
-    private Map<Integer, @Min(value = 1, message = "You should buy at least one product") Short> products;
+    private Map<Integer, Short> products;
 
 }

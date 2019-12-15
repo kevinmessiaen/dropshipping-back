@@ -7,6 +7,8 @@ import com.messiaen.dropshipping.transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService implements IUserService {
 
@@ -17,6 +19,11 @@ public class UserService implements IUserService {
     public UserService(UserRepository userRepository, UserTransformer userTransformer) {
         this.userRepository = userRepository;
         this.userTransformer = userTransformer;
+    }
+
+    @Override
+    public Optional<UserDto> findByUsername(String username) {
+        return userRepository.findByUsername(username).map(userTransformer::transformToDto);
     }
 
     @Override
