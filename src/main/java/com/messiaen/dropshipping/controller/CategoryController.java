@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class CategoryController {
 

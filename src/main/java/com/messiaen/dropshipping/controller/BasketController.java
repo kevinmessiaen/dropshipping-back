@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class BasketController {
 
