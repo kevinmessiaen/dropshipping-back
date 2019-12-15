@@ -1,6 +1,7 @@
 package com.messiaen.dropshipping;
 
 import com.messiaen.dropshipping.auth.AuthenticationFailureHandler;
+import com.messiaen.dropshipping.auth.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -20,22 +22,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint restAuthenticationEntryPoint;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
     public SecurityConfig(AuthenticationEntryPoint restAuthenticationEntryPoint,
                           AuthenticationSuccessHandler successHandler,
-                          AuthenticationFailureHandler failureHandler) {
+                          AuthenticationFailureHandler failureHandler,
+                          UserDetailsServiceImpl userDetailsService) {
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("adminPass")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("userPass")).roles("USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
     @Override

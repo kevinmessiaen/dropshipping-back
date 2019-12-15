@@ -1,3 +1,7 @@
+INSERT INTO user (username, password) VALUES
+    ('user', '$2y$10$cM2TiO5CWtYJnE5tulwdiOEsjIAW0vqhBmSzoo/uwVg7dv7VAm.6K'),
+    ('admin', '$2y$10$5DjypPsecR3zbY1WdnupquE/svE/HHWq8TfpfZRgd/T60JzhoDJ2q');
+
 INSERT INTO category (name, desc, path, parent_id) VALUES
     ('Café', 'Les meilleurs cafés du Vietnam!', 'cafe', null),
     ('Arabica', 'Nos cafés arabica!', 'cafe-arabica', 1),

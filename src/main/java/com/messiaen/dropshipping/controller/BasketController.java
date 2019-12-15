@@ -25,12 +25,12 @@ public class BasketController {
     }
 
     @PostMapping("/basket")
-    private ResponseEntity<BasketDto> createBasket(@RequestBody @Valid BasketDto basket) {
+    private ResponseEntity<BasketDto> create(@RequestBody @Valid BasketDto basket) {
         return ResponseEntity.of(basketService.createBasket(basket));
     }
 
     @PutMapping("/basket/{uuid}")
-    private ResponseEntity<BasketDto> findById(@PathVariable String uuid, @RequestBody @Valid BasketDto basket) {
+    private ResponseEntity<BasketDto> update(@PathVariable String uuid, @RequestBody @Valid BasketDto basket) {
         return ResponseEntity.of(basketService.updateBasket(uuid, basket));
     }
 }
