@@ -1,14 +1,12 @@
 package com.messiaen.dropshipping.controller;
 
 import com.messiaen.dropshipping.model.BasketDto;
-import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.service.IBasketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @RestController
 public class BasketController {
