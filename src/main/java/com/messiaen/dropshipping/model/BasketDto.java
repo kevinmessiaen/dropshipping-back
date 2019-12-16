@@ -3,7 +3,6 @@ package com.messiaen.dropshipping.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.validation.constraints.Min;
 import java.util.Map;
 
 @NoArgsConstructor
