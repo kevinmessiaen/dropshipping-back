@@ -1,5 +1,7 @@
 package com.messiaen.dropshipping.service.impl;
 
+import com.messiaen.dropshipping.entity.Basket;
+import com.messiaen.dropshipping.entity.User;
 import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.repository.UserRepository;
 import com.messiaen.dropshipping.service.IUserService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -29,5 +32,15 @@ public class UserService implements IUserService {
     @Override
     public UserDto createUser(UserDto dto) {
         return userTransformer.transformToDto(userRepository.save(userTransformer.transformToEntity(dto)));
+    }
+
+    @Override
+    public UserDto setUserBasket(String username, String basketId) {
+        User user = userRepository.findByUsername(username).orElse(null);
+        if (user == null)
+            return null;
+
+        user.setBasket(Basket.builder().id(UUID.fromString(basketId)).build());
+        return userTransformer.transformToDto(userRepository.save(user));
     }
 }

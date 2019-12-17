@@ -8,6 +8,8 @@ import com.messiaen.dropshipping.transformer.BasketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,13 +17,14 @@ import java.util.UUID;
 public class BasketService implements IBasketService {
 
     private final BasketTransformer basketTransformer;
-
     private final BasketRepository basketRepository;
+    private final UserService userService;
 
     @Autowired
-    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository) {
+    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository, UserService userService) {
         this.basketTransformer = basketTransformer;
         this.basketRepository = basketRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -45,5 +48,18 @@ public class BasketService implements IBasketService {
         entity.setContent(basketTransformer.transformToEntity(basket).getContent());
         entity.getContent().forEach((e) -> e.getId().setBasket(entity));
         return Optional.of(basketTransformer.transformToDto(basketRepository.save(entity)));
+    }
+
+    @Override
+    public Optional<BasketDto> fuseBasket(String uuid, BasketDto basket, Principal principal) {
+        Optional<Basket> userBasket = basketRepository.findByUserUsername(principal.getName());
+
+        if (userBasket.isPresent()) {
+            basketTransformer.fuseProducts(userBasket.get(), basket);
+            return Optional.of(basketTransformer.transformToDto(basketRepository.save(userBasket.get())));
+        } else {
+            userService.setUserBasket(principal.getName(), uuid);
+            return updateBasket(uuid, basket);
+        }
     }
 }

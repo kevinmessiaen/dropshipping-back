@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 public class BasketController {
@@ -31,5 +32,12 @@ public class BasketController {
     @PutMapping("/basket/{uuid}")
     private ResponseEntity<BasketDto> update(@PathVariable String uuid, @RequestBody @Valid BasketDto basket) {
         return ResponseEntity.of(basketService.updateBasket(uuid, basket));
+    }
+
+    @PutMapping("/restricted/basket/{uuid}")
+    private ResponseEntity<BasketDto> fuseBasket(@PathVariable String uuid,
+                                                 @RequestBody @Valid BasketDto basket,
+                                                 Principal principal) {
+        return ResponseEntity.of(basketService.fuseBasket(uuid, basket, principal));
     }
 }

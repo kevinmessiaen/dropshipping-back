@@ -2,6 +2,7 @@ package com.messiaen.dropshipping.transformer;
 
 import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.model.BasketDto;
+import com.messiaen.dropshipping.utils.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,5 +53,16 @@ public class BasketTransformer extends Transformer<Basket, BasketDto, UUID> {
     @Override
     public Basket holdKey(UUID key) {
         return key == null ? null : Basket.builder().id(key).build();
+    }
+
+    public void fuseProducts(Basket dst, BasketDto src) {
+        if (dst == null || src == null || src.getProducts() == null || src.getProducts().isEmpty())
+            return;
+
+        if (dst.getContent() == null || dst.getContent().isEmpty())
+            dst.setContent(basketContentTransformer.transformToEntity(src.getProducts()));
+        else
+            dst.setContent(basketContentTransformer.transformToEntity(
+                    MapUtils.<Integer>countShortValues(basketContentTransformer.transformToMap(dst.getContent()), src.getProducts())));
     }
 }

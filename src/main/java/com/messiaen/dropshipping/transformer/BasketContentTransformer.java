@@ -2,6 +2,7 @@ package com.messiaen.dropshipping.transformer;
 
 import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.entity.BasketContent;
+import com.messiaen.dropshipping.model.BasketDto;
 import com.sun.istack.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -36,4 +37,6 @@ public class BasketContentTransformer extends MapTransformer<BasketContent, Inte
                 .amount(value)
                 .build();
     }
+
+
 }

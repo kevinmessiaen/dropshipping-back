@@ -9,4 +9,6 @@ public interface IUserService {
     Optional<UserDto> findByUsername(String username);
 
     UserDto createUser(UserDto user);
+
+    UserDto setUserBasket(String username, String basketId);
 }
