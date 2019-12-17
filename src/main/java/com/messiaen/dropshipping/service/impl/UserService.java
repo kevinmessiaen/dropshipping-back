@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -35,12 +34,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto setUserBasket(String username, String basketId) {
+    public void setUserBasket(String username, Basket basket) {
         User user = userRepository.findByUsername(username).orElse(null);
         if (user == null)
-            return null;
+            return;
 
-        user.setBasket(Basket.builder().id(UUID.fromString(basketId)).build());
-        return userTransformer.transformToDto(userRepository.save(user));
+        user.setBasket(basket);
+        userRepository.save(user);
     }
 }

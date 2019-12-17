@@ -8,7 +8,6 @@ import com.messiaen.dropshipping.transformer.BasketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,13 +40,17 @@ public class BasketService implements IBasketService {
 
     @Override
     public Optional<BasketDto> updateBasket(String uuid, BasketDto basket) {
+        return Optional.of(basketTransformer.transformToDto(update(uuid, basket)));
+    }
+
+    private Basket update(String uuid, BasketDto basket) {
         Basket entity = basketRepository.findById(UUID.fromString(uuid)).orElse(null);
         if (entity == null)
-            return Optional.empty();
+            return null;
 
         entity.setContent(basketTransformer.transformToEntity(basket).getContent());
-        entity.getContent().forEach((e) -> e.getId().setBasket(entity));
-        return Optional.of(basketTransformer.transformToDto(basketRepository.save(entity)));
+        entity.getContent().forEach((e) -> e.getId().setBasket(basketTransformer.holdKey(entity.getId())));
+        return basketRepository.save(entity);
     }
 
     @Override
@@ -58,8 +61,9 @@ public class BasketService implements IBasketService {
             basketTransformer.fuseProducts(userBasket.get(), basket);
             return Optional.of(basketTransformer.transformToDto(basketRepository.save(userBasket.get())));
         } else {
-            userService.setUserBasket(principal.getName(), uuid);
-            return updateBasket(uuid, basket);
+            Basket entity = update(uuid, basket);
+            userService.setUserBasket(principal.getName(), entity);
+            return Optional.of(basketTransformer.transformToDto(entity));
         }
     }
 }

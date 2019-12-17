@@ -1,5 +1,6 @@
 package com.messiaen.dropshipping.service;
 
+import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.model.UserDto;
 
 import java.util.Optional;
@@ -10,5 +11,5 @@ public interface IUserService {
 
     UserDto createUser(UserDto user);
 
-    UserDto setUserBasket(String username, String basketId);
+    void setUserBasket(String username, Basket basket);
 }
