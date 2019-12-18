@@ -32,7 +32,7 @@ public class BasketContent {
         @JoinColumn(name = "basket_id")
         private Basket basket;
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "product_id")
         private Product product;
 

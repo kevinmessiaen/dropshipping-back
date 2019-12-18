@@ -1,7 +1,5 @@
 package com.messiaen.dropshipping.service.impl;
 
-import com.messiaen.dropshipping.entity.Basket;
-import com.messiaen.dropshipping.entity.User;
 import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.repository.UserRepository;
 import com.messiaen.dropshipping.service.IUserService;
@@ -31,15 +29,5 @@ public class UserService implements IUserService {
     @Override
     public UserDto createUser(UserDto dto) {
         return userTransformer.transformToDto(userRepository.save(userTransformer.transformToEntity(dto)));
-    }
-
-    @Override
-    public void setUserBasket(String username, Basket basket) {
-        User user = userRepository.findByUsername(username).orElse(null);
-        if (user == null)
-            return;
-
-        user.setBasket(basket);
-        userRepository.save(user);
     }
 }

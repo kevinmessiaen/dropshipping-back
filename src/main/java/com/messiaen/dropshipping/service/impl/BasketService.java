@@ -8,7 +8,6 @@ import com.messiaen.dropshipping.transformer.BasketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,19 +16,21 @@ public class BasketService implements IBasketService {
 
     private final BasketTransformer basketTransformer;
     private final BasketRepository basketRepository;
-    private final UserService userService;
 
     @Autowired
-    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository, UserService userService) {
+    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository) {
         this.basketTransformer = basketTransformer;
         this.basketRepository = basketRepository;
-        this.userService = userService;
     }
 
     @Override
     public Optional<BasketDto> findById(String uuid) {
-        return basketRepository.findById(UUID.fromString(uuid))
-                .map(basketTransformer::transformToDto);
+        return basketRepository.fetchById(UUID.fromString(uuid)).map(wrapper -> {
+            BasketDto dto = basketTransformer.transformToDto(wrapper.getBasket());
+            dto.setItems(wrapper.getItems());
+            dto.setPrice(wrapper.getPrice());
+            return dto;
+        });
     }
 
     @Override
@@ -40,7 +41,10 @@ public class BasketService implements IBasketService {
 
     @Override
     public Optional<BasketDto> updateBasket(String uuid, BasketDto basket) {
-        return Optional.of(basketTransformer.transformToDto(update(uuid, basket)));
+        Basket saved = update(uuid, basket);
+        if (saved == null)
+            return Optional.empty();
+        return findById(saved.getId().toString());
     }
 
     private Basket update(String uuid, BasketDto basket) {
@@ -51,19 +55,5 @@ public class BasketService implements IBasketService {
         entity.setContent(basketTransformer.transformToEntity(basket).getContent());
         entity.getContent().forEach((e) -> e.getId().setBasket(basketTransformer.holdKey(entity.getId())));
         return basketRepository.save(entity);
-    }
-
-    @Override
-    public Optional<BasketDto> fuseBasket(String uuid, BasketDto basket, Principal principal) {
-        Optional<Basket> userBasket = basketRepository.findByUserUsername(principal.getName());
-
-        if (userBasket.isPresent()) {
-            basketTransformer.fuseProducts(userBasket.get(), basket);
-            return Optional.of(basketTransformer.transformToDto(basketRepository.save(userBasket.get())));
-        } else {
-            Basket entity = update(uuid, basket);
-            userService.setUserBasket(principal.getName(), entity);
-            return Optional.of(basketTransformer.transformToDto(entity));
-        }
     }
 }

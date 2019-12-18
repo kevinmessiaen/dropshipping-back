@@ -33,11 +33,4 @@ public class BasketController {
     private ResponseEntity<BasketDto> update(@PathVariable String uuid, @RequestBody @Valid BasketDto basket) {
         return ResponseEntity.of(basketService.updateBasket(uuid, basket));
     }
-
-    @PutMapping("/restricted/basket/{uuid}")
-    private ResponseEntity<BasketDto> fuseBasket(@PathVariable String uuid,
-                                                 @RequestBody @Valid BasketDto basket,
-                                                 Principal principal) {
-        return ResponseEntity.of(basketService.fuseBasket(uuid, basket, principal));
-    }
 }
