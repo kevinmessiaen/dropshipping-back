@@ -10,6 +10,4 @@ public interface IUserService {
     Optional<UserDto> findByUsername(String username);
 
     UserDto createUser(UserDto user);
-
-    void setUserBasket(String username, Basket basket);
 }

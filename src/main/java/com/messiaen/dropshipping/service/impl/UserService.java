@@ -32,14 +32,4 @@ public class UserService implements IUserService {
     public UserDto createUser(UserDto dto) {
         return userTransformer.transformToDto(userRepository.save(userTransformer.transformToEntity(dto)));
     }
-
-    @Override
-    public void setUserBasket(String username, Basket basket) {
-        User user = userRepository.findByUsername(username).orElse(null);
-        if (user == null)
-            return;
-
-        user.setBasket(basket);
-        userRepository.save(user);
-    }
 }

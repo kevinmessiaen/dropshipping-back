@@ -17,13 +17,11 @@ public class BasketService implements IBasketService {
 
     private final BasketTransformer basketTransformer;
     private final BasketRepository basketRepository;
-    private final UserService userService;
 
     @Autowired
     public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository, UserService userService) {
         this.basketTransformer = basketTransformer;
         this.basketRepository = basketRepository;
-        this.userService = userService;
     }
 
     @Override
@@ -51,19 +49,5 @@ public class BasketService implements IBasketService {
         entity.setContent(basketTransformer.transformToEntity(basket).getContent());
         entity.getContent().forEach((e) -> e.getId().setBasket(basketTransformer.holdKey(entity.getId())));
         return basketRepository.save(entity);
-    }
-
-    @Override
-    public Optional<BasketDto> fuseBasket(String uuid, BasketDto basket, Principal principal) {
-        Optional<Basket> userBasket = basketRepository.findByUserUsername(principal.getName());
-
-        if (userBasket.isPresent()) {
-            basketTransformer.fuseProducts(userBasket.get(), basket);
-            return Optional.of(basketTransformer.transformToDto(basketRepository.save(userBasket.get())));
-        } else {
-            Basket entity = update(uuid, basket);
-            userService.setUserBasket(principal.getName(), entity);
-            return Optional.of(basketTransformer.transformToDto(entity));
-        }
     }
 }
