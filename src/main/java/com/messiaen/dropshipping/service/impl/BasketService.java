@@ -8,7 +8,6 @@ import com.messiaen.dropshipping.transformer.BasketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,15 +18,19 @@ public class BasketService implements IBasketService {
     private final BasketRepository basketRepository;
 
     @Autowired
-    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository, UserService userService) {
+    public BasketService(BasketTransformer basketTransformer, BasketRepository basketRepository) {
         this.basketTransformer = basketTransformer;
         this.basketRepository = basketRepository;
     }
 
     @Override
     public Optional<BasketDto> findById(String uuid) {
-        return basketRepository.findById(UUID.fromString(uuid))
-                .map(basketTransformer::transformToDto);
+        return basketRepository.fetchById(UUID.fromString(uuid)).map(wrapper -> {
+            BasketDto dto = basketTransformer.transformToDto(wrapper.getBasket());
+            dto.setItems(wrapper.getItems());
+            dto.setPrice(wrapper.getPrice());
+            return dto;
+        });
     }
 
     @Override
@@ -38,7 +41,10 @@ public class BasketService implements IBasketService {
 
     @Override
     public Optional<BasketDto> updateBasket(String uuid, BasketDto basket) {
-        return Optional.of(basketTransformer.transformToDto(update(uuid, basket)));
+        Basket saved = update(uuid, basket);
+        if (saved == null)
+            return Optional.empty();
+        return findById(saved.getId().toString());
     }
 
     private Basket update(String uuid, BasketDto basket) {

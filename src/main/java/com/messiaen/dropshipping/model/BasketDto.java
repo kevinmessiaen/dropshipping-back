@@ -17,4 +17,8 @@ public class BasketDto {
 
     private Map<Integer, Short> products;
 
+    private Long items;
+
+    private Double price;
+
 }

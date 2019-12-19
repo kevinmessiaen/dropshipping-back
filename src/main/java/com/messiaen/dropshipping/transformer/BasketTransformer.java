@@ -1,6 +1,7 @@
 package com.messiaen.dropshipping.transformer;
 
 import com.messiaen.dropshipping.entity.Basket;
+import com.messiaen.dropshipping.entity.BasketContent;
 import com.messiaen.dropshipping.model.BasketDto;
 import com.messiaen.dropshipping.utils.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class BasketTransformer extends Transformer<Basket, BasketDto, UUID> {
                 BasketDto.builder()
                         .id(extractKeyToString(entity))
                         .products(basketContentTransformer.transformToMap(entity.getContent()))
+                        .price(0.0)
+                        .items(0L)
                         .build();
     }
 

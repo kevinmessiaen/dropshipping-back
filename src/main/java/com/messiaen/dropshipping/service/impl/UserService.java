@@ -1,7 +1,5 @@
 package com.messiaen.dropshipping.service.impl;
 
-import com.messiaen.dropshipping.entity.Basket;
-import com.messiaen.dropshipping.entity.User;
 import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.repository.UserRepository;
 import com.messiaen.dropshipping.service.IUserService;

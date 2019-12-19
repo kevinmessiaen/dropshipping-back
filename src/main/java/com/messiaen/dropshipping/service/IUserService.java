@@ -10,4 +10,5 @@ public interface IUserService {
     Optional<UserDto> findByUsername(String username);
 
     UserDto createUser(UserDto user);
+
 }
