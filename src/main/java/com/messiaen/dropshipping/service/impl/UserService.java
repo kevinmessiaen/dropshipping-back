@@ -3,7 +3,7 @@ package com.messiaen.dropshipping.service.impl;
 import com.messiaen.dropshipping.model.UserDto;
 import com.messiaen.dropshipping.repository.UserRepository;
 import com.messiaen.dropshipping.service.IUserService;
-import com.messiaen.dropshipping.transformer.UserTransformer;
+import com.messiaen.dropshipping.transformer.entity.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

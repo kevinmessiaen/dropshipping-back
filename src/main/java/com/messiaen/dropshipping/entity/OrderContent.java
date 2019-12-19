@@ -6,19 +6,22 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "basket_content")
+@Table(name = "order_content")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class BasketContent {
+public class OrderContent {
 
     @EmbeddedId
-    private BasketContentId id;
+    private OrderContentId id;
 
     @Column
     private Short amount;
+
+    @Column
+    private Double price;
 
     @Embeddable
     @Builder
@@ -26,11 +29,11 @@ public class BasketContent {
     @AllArgsConstructor
     @Getter
     @Setter
-    public static class BasketContentId implements Serializable {
+    public static class OrderContentId implements Serializable {
 
         @ManyToOne
-        @JoinColumn(name = "basket_id")
-        private Basket basket;
+        @JoinColumn(name = "order_id")
+        private Order order;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "product_id")

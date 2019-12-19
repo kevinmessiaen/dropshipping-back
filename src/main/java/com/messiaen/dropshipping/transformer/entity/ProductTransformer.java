@@ -1,4 +1,4 @@
-package com.messiaen.dropshipping.transformer;
+package com.messiaen.dropshipping.transformer.entity;
 
 import com.messiaen.dropshipping.entity.Product;
 import com.messiaen.dropshipping.model.ProductDto;

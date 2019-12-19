@@ -12,6 +12,10 @@ INSERT INTO category (name, desc, path, parent_id) VALUES
     ('Robusta', 'Nos cafés robusta!', 'cafe-robusta', 1),
     ('Culi', 'Nos cafés culi!', 'cafe-culi', 1);
 
+INSERT INTO shipping_method(name, min_work_days, max_work_days, fees, min_order, free_min_order) VALUES
+    ('Standard', 3, 5, 4.99, 0, 25),
+    ('1 jour ouvré', 1, 2, 9.99, 0, null);
+
 INSERT INTO product (name, desc, path, price, category_id) VALUES
     ('Arabica 100% (250g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam', 'cafe-arabica-250-g', 4.7, 2),
     ('Arabica 100% (500g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam ', 'cafe-arabica-500-g', 7.8, 2),

@@ -3,7 +3,7 @@ package com.messiaen.dropshipping.service.impl;
 import com.messiaen.dropshipping.model.ProductDto;
 import com.messiaen.dropshipping.repository.ProductRepository;
 import com.messiaen.dropshipping.service.IProductService;
-import com.messiaen.dropshipping.transformer.ProductTransformer;
+import com.messiaen.dropshipping.transformer.entity.ProductTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

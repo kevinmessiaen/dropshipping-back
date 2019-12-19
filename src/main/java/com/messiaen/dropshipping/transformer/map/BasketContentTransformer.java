@@ -1,15 +1,10 @@
-package com.messiaen.dropshipping.transformer;
+package com.messiaen.dropshipping.transformer.map;
 
-import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.entity.BasketContent;
-import com.messiaen.dropshipping.model.BasketDto;
-import com.sun.istack.Nullable;
+import com.messiaen.dropshipping.transformer.entity.ProductTransformer;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class BasketContentTransformer extends MapTransformer<BasketContent, Integer, Short> {

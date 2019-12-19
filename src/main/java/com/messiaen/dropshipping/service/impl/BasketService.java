@@ -4,7 +4,7 @@ import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.model.BasketDto;
 import com.messiaen.dropshipping.repository.BasketRepository;
 import com.messiaen.dropshipping.service.IBasketService;
-import com.messiaen.dropshipping.transformer.BasketTransformer;
+import com.messiaen.dropshipping.transformer.entity.BasketTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

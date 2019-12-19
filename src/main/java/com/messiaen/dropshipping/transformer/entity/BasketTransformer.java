@@ -1,8 +1,8 @@
-package com.messiaen.dropshipping.transformer;
+package com.messiaen.dropshipping.transformer.entity;
 
 import com.messiaen.dropshipping.entity.Basket;
-import com.messiaen.dropshipping.entity.BasketContent;
 import com.messiaen.dropshipping.model.BasketDto;
+import com.messiaen.dropshipping.transformer.map.BasketContentTransformer;
 import com.messiaen.dropshipping.utils.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

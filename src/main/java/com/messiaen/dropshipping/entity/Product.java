@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name ="product")
@@ -34,5 +35,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "id.product")
+    private Collection<BasketContent> baskets;
+
+    @OneToMany(mappedBy = "id.product")
+    private Collection<OrderContent> orders;
 
 }

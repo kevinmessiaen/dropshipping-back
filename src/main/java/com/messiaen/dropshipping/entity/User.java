@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name ="user")
@@ -31,5 +32,8 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
     private Basket basket;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Collection<Order> orders;
 
 }

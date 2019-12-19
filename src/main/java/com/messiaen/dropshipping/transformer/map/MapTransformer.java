@@ -1,4 +1,4 @@
-package com.messiaen.dropshipping.transformer;
+package com.messiaen.dropshipping.transformer.map;
 
 import com.sun.istack.Nullable;
 
