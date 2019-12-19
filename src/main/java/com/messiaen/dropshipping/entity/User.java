@@ -25,6 +25,8 @@ public class User {
     @Column
     private String password;
 
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)

@@ -1,6 +1,6 @@
-INSERT INTO user (username, password) VALUES
-    ('user', '$2y$10$cM2TiO5CWtYJnE5tulwdiOEsjIAW0vqhBmSzoo/uwVg7dv7VAm.6K'),
-    ('admin', '$2y$10$5DjypPsecR3zbY1WdnupquE/svE/HHWq8TfpfZRgd/T60JzhoDJ2q');
+INSERT INTO user (username, password, is_admin) VALUES
+    ('user', '$2y$10$cM2TiO5CWtYJnE5tulwdiOEsjIAW0vqhBmSzoo/uwVg7dv7VAm.6K', false),
+    ('admin', '$2y$10$5DjypPsecR3zbY1WdnupquE/svE/HHWq8TfpfZRgd/T60JzhoDJ2q', true);
 
 INSERT INTO basket (id, user_id) VALUES
     (RANDOM_UUID(), 1),

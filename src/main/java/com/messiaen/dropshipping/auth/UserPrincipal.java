@@ -6,15 +6,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
 
-    private final static GrantedAuthority USER = new GrantedAuthority() {
-        @Override
-        public String getAuthority() {
-            return "USER";
-        }
-    };
+    private final static GrantedAuthority USER = () -> "USER";
+    private final static GrantedAuthority ADMIN = () -> "ADMIN";
+
 
     private final User user;
 
@@ -24,7 +22,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(USER);
+        return this.user.getIsAdmin() ? Arrays.asList(USER, ADMIN) : Collections.singletonList(USER);
     }
 
     @Override

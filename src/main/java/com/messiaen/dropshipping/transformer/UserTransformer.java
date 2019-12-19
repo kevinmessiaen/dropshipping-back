@@ -25,6 +25,7 @@ public class UserTransformer extends Transformer<User, UserDto, Long> {
                         .id(entity.getId())
                         .username(entity.getUsername())
                         .basketId(basketTransformer.extractKeyToString(entity.getBasket()))
+                        .isAdmin(entity.getIsAdmin())
                         .build();
     }
 
