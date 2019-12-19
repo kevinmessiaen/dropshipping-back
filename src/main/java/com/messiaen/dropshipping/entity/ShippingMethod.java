@@ -25,7 +25,7 @@ public class ShippingMethod {
     @Column(name = "min_work_days", nullable = false)
     private Integer minimumWorkingDays;
 
-    @Column(name = "max_work_days", nullable = false)
+    @Column(name = "max_work_days")
     private Integer maximumWorkingDays;
 
     @Column(nullable = false)

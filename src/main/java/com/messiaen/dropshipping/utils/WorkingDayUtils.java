@@ -1,33 +1,37 @@
 package com.messiaen.dropshipping.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class WorkingDayUtils {
 
-    private final static List<Integer> OFF_DAYS = Arrays.asList(Calendar.SATURDAY, Calendar.SUNDAY);
-    private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+    private final static List<DayOfWeek> OFF_DAYS = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+    private final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.FRANCE);
 
     public static String deliveryDate(Integer min, Integer max) {
         if (max == null)
             return deliveryDate(min);
-        return "Entre le " + nextWorkingDays(min) + " et le " + nextWorkingDays(max);
+
+        return "Livraison prévue entre le " + nextWorkingDays(min) + " et le " + nextWorkingDays(max);
 
     }
 
     private static String deliveryDate(Integer min) {
-        return "Le " + nextWorkingDays(min);
+        return "Livraison prévue le " + nextWorkingDays(min);
     }
 
     private static String nextWorkingDays(Integer days) {
-        Calendar calendar = Calendar.getInstance();
+        LocalDateTime ldt = LocalDateTime.now();
         while (days > 0) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            if (!OFF_DAYS.contains(calendar.get(Calendar.DAY_OF_WEEK)))
+            ldt = ldt.plusDays(1);
+            if (!OFF_DAYS.contains(ldt.getDayOfWeek()))
                 days --;
         }
-        return sdf.format(calendar);
+        return dtf.format(ldt);
     }
 }
