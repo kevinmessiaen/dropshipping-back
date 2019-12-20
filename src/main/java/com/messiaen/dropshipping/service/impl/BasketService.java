@@ -25,6 +25,7 @@ public class BasketService implements IBasketService {
 
     @Override
     public Optional<BasketDto> findById(String uuid) {
+        if (!basketRepository.findById(UUID.fromString(uuid)).isPresent()) return Optional.empty();
         return basketRepository.fetchById(UUID.fromString(uuid)).map(wrapper -> {
             BasketDto dto = basketTransformer.transformToDto(wrapper.getBasket());
             dto.setItems(wrapper.getItems());

@@ -1,5 +1,6 @@
 package com.messiaen.dropshipping.service;
 
+import com.messiaen.dropshipping.entity.Basket;
 import com.messiaen.dropshipping.model.BasketDto;
 
 import java.security.Principal;
