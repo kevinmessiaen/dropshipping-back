@@ -16,7 +16,7 @@ public class BasketDto {
 
     private String id;
 
-    private Map<Integer, @Min(value = 0, message = "Le nombre de produits ne peut être négatif") Short> products;
+    private Map<Integer, @Min(value = 0, message = "La quantité ne peut être négative") Short> products;
 
     private Long items;
 

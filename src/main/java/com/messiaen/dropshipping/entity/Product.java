@@ -32,6 +32,9 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
+    @Column
+    private Long stock;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
