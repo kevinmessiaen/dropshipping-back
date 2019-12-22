@@ -3,6 +3,7 @@ package com.messiaen.dropshipping.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import javax.validation.constraints.Min;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class BasketDto {
 
     private String id;
 
-    private Map<Integer, Short> products;
+    private Map<Integer, @Min(value = 0, message = "Le nombre de produits ne peut être négatif") Short> products;
 
     private Long items;
 
