@@ -16,18 +16,29 @@ INSERT INTO shipping_method(name, min_work_days, max_work_days, fees, min_order,
     ('Standard', 3, 5, 4.99, 0, 25),
     ('1 jour ouvré', 1, null, 9.99, 0, null);
 
-INSERT INTO product (name, desc, path, price, category_id, stock) VALUES
-    ('Arabica 100% (250g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam', 'cafe-arabica-250-g', 4.7, 2, 100),
-    ('Arabica 100% (500g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam ', 'cafe-arabica-500-g', 7.8, 2, 50),
-    ('Arabica 100% (1kg)', 'Un kilo de café Arabica cultivé dans la région de Da Lat au Vietnam ', 'cafe-arabica-1-kg', 15.6, 2, 10),
-    ('Robusta 100% (250g)', '250 grammes de café Robusta cultivé au Vietnam', 'cafe-robusta-250-g', 3.9, 3, 5),
-    ('Robusta 100% (500g)', '250 grammes de café Robusta cultivé au Vietnam ', 'cafe-robusta-500-g', 6.6, 3, 0),
-    ('Robusta 100% (1kg)', 'Un kilo de café Robusta cultivé dans au Vietnam ', 'cafe-robusta-1-kg', 12.9, 3, 2),
-    ('Culi (250g)', '250 grammes de café Culi cultivé au Vietnam ', 'cafe-culi-250-g', 3.9, 4, 200),
-    ('Culi (500g)', '500 grammes de café Culi cultivé au Vietnam ', 'cafe-culi-500-g', 6.6, 4, 28),
-    ('Culi (1kg)', 'Un kilo de café Culi cultivé au Vietnam ', 'cafe-culi-1-kg', 12.9, 4, 7);
+INSERT INTO product (name, desc, path, price, category_id) VALUES
+    ('Arabica 100% (250g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam', 'cafe-arabica-250-g', 4.7, 2),
+    ('Arabica 100% (500g)', '250 grammes de café Arabica cultivé dans la région de Da Lat au Vietnam ', 'cafe-arabica-500-g', 7.8, 2),
+    ('Arabica 100% (1kg)', 'Un kilo de café Arabica cultivé dans la région de Da Lat au Vietnam ', 'cafe-arabica-1-kg', 15.6, 2),
+    ('Robusta 100% (250g)', '250 grammes de café Robusta cultivé au Vietnam', 'cafe-robusta-250-g', 3.9, 3),
+    ('Robusta 100% (500g)', '250 grammes de café Robusta cultivé au Vietnam ', 'cafe-robusta-500-g', 6.6, 3),
+    ('Robusta 100% (1kg)', 'Un kilo de café Robusta cultivé dans au Vietnam ', 'cafe-robusta-1-kg', 12.9, 3),
+    ('Culi (250g)', '250 grammes de café Culi cultivé au Vietnam ', 'cafe-culi-250-g', 3.9, 4),
+    ('Culi (500g)', '500 grammes de café Culi cultivé au Vietnam ', 'cafe-culi-500-g', 6.6, 4),
+    ('Culi (1kg)', 'Un kilo de café Culi cultivé au Vietnam ', 'cafe-culi-1-kg', 12.9, 4);
 
-    INSERT INTO city(name,post_codes) VALUES
+INSERT INTO stock (product_id, quantity, in_basket, version) VALUES
+    (1, 100, 0, 1),
+    (2, 50, 0, 1),
+    (3, 10, 0, 1),
+    (4, 5, 0, 1),
+    (5, 0, 0, 1),
+    (6, 2, 0, 1),
+    (7, 200, 0, 1),
+    (8, 28, 0, 1),
+    (9, 7, 0, 1);
+
+INSERT INTO city(name,post_codes) VALUES
  ('OZAN','01190')
 ,('CORMORANCHE-SUR-SAONE','01290')
 ,('PLAGNE','01130')

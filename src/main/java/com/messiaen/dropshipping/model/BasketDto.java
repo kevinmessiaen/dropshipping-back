@@ -18,6 +18,8 @@ public class BasketDto {
 
     private Map<Integer, @Min(value = 0, message = "La quantité ne peut être négative") Short> products;
 
+    private Map<Integer, @Min(value = 0, message = "La quantité ne peut être négative") Short> notInStock;
+
     private Long items;
 
     private Double price;

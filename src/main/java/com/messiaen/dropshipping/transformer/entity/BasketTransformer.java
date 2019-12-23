@@ -7,6 +7,7 @@ import com.messiaen.dropshipping.utils.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -46,6 +47,7 @@ public class BasketTransformer extends Transformer<Basket, BasketDto, UUID> {
                 Basket.builder()
                         .id(parseKey(dto.getId()))
                         .content(basketContentTransformer.transformToEntity(dto.getProducts()))
+                        .lastUpdate(LocalDateTime.now())
                         .build();
     }
 
@@ -66,6 +68,6 @@ public class BasketTransformer extends Transformer<Basket, BasketDto, UUID> {
             dst.setContent(basketContentTransformer.transformToEntity(src.getProducts()));
         else
             dst.setContent(basketContentTransformer.transformToEntity(
-                    MapUtils.<Integer>countShortValues(basketContentTransformer.transformToMap(dst.getContent()), src.getProducts())));
+                    MapUtils.countShortValues(basketContentTransformer.transformToMap(dst.getContent()), src.getProducts())));
     }
 }

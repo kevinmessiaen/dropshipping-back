@@ -25,7 +25,7 @@ public class ProductTransformer extends Transformer<Product, ProductDto, Integer
                         .desc(entity.getDesc())
                         .path(entity.getPath())
                         .price(entity.getPrice())
-                        .stock(entity.getStock())
+                        .stock(entity.getStock().getQuantity() - entity.getStock().getInBasket())
                         .categoryId(categoryTransformer.extractKey(entity.getCategory()))
                         .build();
     }
@@ -44,7 +44,6 @@ public class ProductTransformer extends Transformer<Product, ProductDto, Integer
                         .desc(dto.getDesc())
                         .path(dto.getPath())
                         .price(dto.getPrice())
-                        .stock(dto.getStock())
                         .category(categoryTransformer.holdKey(dto.getCategoryId()))
                         .build();
     }

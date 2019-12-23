@@ -32,14 +32,15 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
-    @Column
-    private Long stock;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    private Stock stock;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(mappedBy = "id.product")
+    @PrimaryKeyJoinColumn
     private Collection<BasketContent> baskets;
 
     @OneToMany(mappedBy = "id.product")

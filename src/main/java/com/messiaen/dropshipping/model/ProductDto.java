@@ -16,7 +16,7 @@ public class ProductDto {
     private String desc;
     private String path;
     private Double price;
-    private Long stock;
+    private Integer stock;
     private Short categoryId;
 
 }
