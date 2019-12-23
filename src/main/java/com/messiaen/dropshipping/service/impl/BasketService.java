@@ -104,7 +104,7 @@ public class BasketService implements IBasketService {
 
         if (oldBasket == null ||
                 oldBasket.getLastUpdate() == null
-                || keepBasketValidity.isBefore(oldBasket.getLastUpdate()))
+                || keepBasketValidity.isAfter(oldBasket.getLastUpdate()))
             return newBasket.getProducts();
 
         return MapUtils.minusShortValues(
