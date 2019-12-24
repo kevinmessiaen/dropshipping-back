@@ -36,6 +36,7 @@ public class BasketService implements IBasketService {
         if (!basketRepository.findById(UUID.fromString(uuid)).isPresent()) return Optional.empty();
         return basketRepository.fetchById(UUID.fromString(uuid)).map(wrapper -> {
             BasketDto dto = basketTransformer.transformToDto(wrapper.getBasket());
+            updateBasket(dto, wrapper.getBasket());
             dto.setItems(wrapper.getItems());
             dto.setPrice(wrapper.getPrice());
             return dto;
