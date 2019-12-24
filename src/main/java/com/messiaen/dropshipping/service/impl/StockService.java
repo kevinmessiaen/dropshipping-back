@@ -24,6 +24,9 @@ public class StockService implements IStockService {
 
     @Override
     public Map<Integer, Boolean> updateBasketInStock(Map<Integer, Short> quantities, LocalDateTime basketValidity) {
+        if (quantities.size() == 0) {
+            return new HashMap<>();
+        }
         stockRepository.updateInStock(quantities.keySet(), basketValidity);
         Collection<Stock> stocks = stockRepository.findAllById(quantities.keySet());
 
